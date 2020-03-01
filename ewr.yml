@@ -1,0 +1,17 @@
+---
+- hosts: k8s
+  user: root
+  tasks:
+
+           - name: Remove the deployment
+             command: kubectl delete deployment yannick-app
+             ignore_errors: yes
+ 
+           - name: Deploy app in Kubernetes
+             command: kubectl create -f /root/yannick/ewr-deploy.yml
+             ignore_errors: yes
+           - name: Remove service id exist
+             command: kubectl delete service yannick-service
+             ignore_errors: yes
+           - name: Deploy service
+             command: kubectl create -f /root/yannick/ewr-service.yml
